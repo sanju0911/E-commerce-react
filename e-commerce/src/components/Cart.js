@@ -1,4 +1,3 @@
-// Cart Component
 import { Offcanvas, Table, Button } from "react-bootstrap";
 
 const Cart = ({ cartItems, handleClose, show, handleRemoveFromCart }) => {
@@ -32,7 +31,7 @@ const Cart = ({ cartItems, handleClose, show, handleRemoveFromCart }) => {
                     <td>
                       <Button
                         variant="danger"
-                        onClick={() => handleRemoveFromCart(index)} // Trigger remove action
+                        onClick={() => handleRemoveFromCart(index)}
                       >
                         Remove
                       </Button>

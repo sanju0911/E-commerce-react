@@ -1,7 +1,6 @@
-// ProductsList Component
 import React, { useState } from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
-import Cart from "./Cart"; // Assuming Cart component is in the same folder
+import Cart from "./Cart";
 
 const products = [
   {
@@ -44,12 +43,10 @@ const ProductsList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
 
-  // Add product to cart
   const handleAddToCart = (product) => {
     setCartItems((prevItems) => [...prevItems, product]);
   };
 
-  // Remove product from cart
   const handleRemoveFromCart = (index) => {
     setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
@@ -87,7 +84,7 @@ const ProductsList = () => {
         cartItems={cartItems}
         handleClose={handleCloseCart}
         show={showCart}
-        handleRemoveFromCart={handleRemoveFromCart} // Pass the remove function to Cart
+        handleRemoveFromCart={handleRemoveFromCart}
       />
     </Container>
   );
