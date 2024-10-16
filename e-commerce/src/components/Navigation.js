@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, Button } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 const Navigation = () => {
   return (
@@ -11,7 +11,6 @@ const Navigation = () => {
             <Nav.Link href="#features">store</Nav.Link>
             <Nav.Link href="#pricing">About us</Nav.Link>
           </Nav>
-          <Button variant="info">cart</Button>
         </Container>
       </Navbar>
     </div>
