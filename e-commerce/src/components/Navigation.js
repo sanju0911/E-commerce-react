@@ -1,6 +1,14 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import Cart from "./Cart";
+import { useState } from "react";
 const Navigation = () => {
+  const [isOpen, SetisOpen] = useState(false);
+
+  const handleOPencart = () => {
+    SetisOpen(!isOpen);
+    console.log(isOpen);
+  };
+
   return (
     <div>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -11,6 +19,11 @@ const Navigation = () => {
             <Nav.Link href="#features">store</Nav.Link>
             <Nav.Link href="#pricing">About us</Nav.Link>
           </Nav>
+          <Button className="ms-auto" onClick={handleOPencart}>
+            Cart
+          </Button>
+
+          {isOpen && <Cart></Cart>}
         </Container>
       </Navbar>
     </div>
