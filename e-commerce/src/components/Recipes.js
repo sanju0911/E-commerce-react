@@ -1,42 +1,36 @@
-import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [dataFetched, setDataFetched] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleFetchRecipes = async () => {
-    setLoading(true);
-    setError(null);
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const res = await fetch(
-        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
-      );
+      try {
+        const res = await fetch(
+          "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
+        );
 
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} ${res.statusText}`);
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        setRecipes(data.recipes);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(error.message);
       }
+    };
 
-      const data = await res.json();
-      setRecipes(data.recipes);
-      setLoading(false);
-      setDataFetched(true);
-    } catch (error) {
-      setLoading(false);
-      setError(error.message);
-    }
-  };
+    fetchRecipes();
+  }, []);
 
   return (
     <Container className="mt-4">
@@ -46,14 +40,6 @@ const Recipes = () => {
         <Alert variant="danger" className="text-center">
           {error}
         </Alert>
-      )}
-
-      {!dataFetched && !loading && (
-        <div className="text-center mb-4">
-          <Button variant="primary" onClick={handleFetchRecipes}>
-            Get Recipes
-          </Button>
-        </div>
       )}
 
       {loading && (
@@ -83,13 +69,6 @@ const Recipes = () => {
                     <strong>Calories per Serving:</strong>{" "}
                     {recipe.caloriesPerServing}
                   </Card.Text>
-                  <Button
-                    variant="primary"
-                    className="mb-2"
-                    onClick={() => alert("You selected: " + recipe.name)}
-                  >
-                    View Recipe
-                  </Button>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">
