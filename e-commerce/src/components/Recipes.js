@@ -1,31 +1,54 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleFetchRecipes = () => {
+  const handleFetchRecipes = async () => {
     setLoading(true);
-    fetch("https://dummyjson.com/recipes")
-      .then((res) => res.json())
-      .then((data) => {
-        setRecipes(data.recipes);
-        setLoading(false);
-        setDataFetched(true);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        setLoading(false);
-      });
+    setError(null);
+
+    try {
+      const res = await fetch(
+        "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
+      );
+
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status} ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      setRecipes(data.recipes);
+      setLoading(false);
+      setDataFetched(true);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
   };
 
   return (
     <Container className="mt-4">
       <h1 className="text-center mb-4">Delicious Recipes</h1>
 
-      {!dataFetched && (
+      {error && (
+        <Alert variant="danger" className="text-center">
+          {error}
+        </Alert>
+      )}
+
+      {!dataFetched && !loading && (
         <div className="text-center mb-4">
           <Button variant="primary" onClick={handleFetchRecipes}>
             Get Recipes
@@ -42,6 +65,7 @@ const Recipes = () => {
 
       <Row>
         {!loading &&
+          !error &&
           recipes.map((recipe) => (
             <Col key={recipe.id} md={4} className="mb-4">
               <Card className="shadow-lg">
