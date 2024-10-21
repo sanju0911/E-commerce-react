@@ -1,48 +1,35 @@
 import React from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
-
-// Random data for image and description
-const aboutData = [
-  {
-    imgSrc: "https://source.unsplash.com/random/300x300?nature",
-    description:
-      "We are a team dedicated to providing the best service. Our mission is to make the world a better place through innovation and creativity.",
-  },
-  {
-    imgSrc: "https://source.unsplash.com/random/300x300?technology",
-    description:
-      "With years of experience in the industry, we focus on delivering top-notch solutions that cater to our clients’ needs with precision and expertise.",
-  },
-  {
-    imgSrc: "https://source.unsplash.com/random/300x300?business",
-    description:
-      "Our passion for excellence drives us to constantly improve and evolve. We believe in making a difference through our commitment to quality.",
-  },
-  {
-    imgSrc: "https://source.unsplash.com/random/300x300?city",
-    description:
-      "As leaders in our field, we strive to set the standard for innovation and customer satisfaction, ensuring that every client walks away happy.",
-  },
-];
-
-// Function to pick a random item from the array
-const getRandomAboutData = () => {
-  const randomIndex = Math.floor(Math.random() * aboutData.length);
-  return aboutData[randomIndex];
-};
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 const About = () => {
-  const { imgSrc, description } = getRandomAboutData();
-
   return (
-    <Container className="my-5">
-      <Row className="align-items-center">
-        <Col xs={12} md={6} className="mb-4">
-          <Image src={imgSrc} alt="About us" fluid />
-        </Col>
-        <Col xs={12} md={6}>
-          <h2>About Us</h2>
-          <p>{description}</p>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card className="shadow-lg">
+            <Card.Body>
+              <Card.Title className="text-center mb-4">
+                <h2>About Us</h2>
+              </Card.Title>
+              <Card.Text className="text-justify">
+                Welcome to our E-commerce platform! We are dedicated to
+                providing our customers with a wide range of high-quality
+                products at competitive prices. Our team works tirelessly to
+                ensure a seamless shopping experience, from browsing to
+                checkout.
+              </Card.Text>
+              <Card.Text className="text-justify">
+                Our mission is to offer exceptional service and the best deals
+                in the market. We constantly update our inventory with the
+                latest trends and products to meet your needs. Whether you're
+                shopping for yourself or for a loved one, we've got something
+                for everyone.
+              </Card.Text>
+              <Card.Text className="text-center font-italic">
+                "Customer satisfaction is our priority."
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 
 const products = [
@@ -39,7 +39,14 @@ const products = [
   },
 ];
 
-const ProductsList = () => {
+const ProductsList = ({ HandleCart }) => {
+  const [addcart, setaddcart] = useState(null);
+
+  const addtocart = (index) => {
+    setaddcart(index);
+    HandleCart(products[index]);
+  };
+
   return (
     <Container className="my-4">
       <Row className="justify-content-center">
@@ -51,7 +58,9 @@ const ProductsList = () => {
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 <Card.Text>Price: ${product.price.toFixed(2)}</Card.Text>
-                <Button variant="primary">Add to Cart</Button>
+                <Button variant="primary" onClick={() => addtocart(index)}>
+                  Add to Cart
+                </Button>
               </Card.Body>
             </Card>
           </Col>
