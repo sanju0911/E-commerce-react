@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Spinner,
+  Alert,
+  Button,
+  Form,
+} from "react-bootstrap";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [newRecipe, setNewRecipe] = useState({
+    name: "",
+    rating: "",
+    cost: "",
+  });
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -32,9 +47,36 @@ const Recipes = () => {
     fetchRecipes();
   }, []);
 
+  const handleAddRecipe = (e) => {
+    e.preventDefault();
+
+    console.log("New Recipe Submitted:", newRecipe);
+
+    setNewRecipe({
+      name: "",
+      rating: "",
+      cost: "",
+    });
+
+    setShowForm(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewRecipe((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <Container className="mt-4">
-      <h1 className="text-center mb-4">Delicious Recipes</h1>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1>Delicious Recipes</h1>
+        <Button variant="primary" onClick={() => setShowForm(!showForm)}>
+          {showForm ? "Close Form" : "Add Recipe"}
+        </Button>
+      </div>
 
       {error && (
         <Alert variant="danger" className="text-center">
@@ -47,6 +89,52 @@ const Recipes = () => {
           <Spinner animation="border" variant="primary" />
           <p>Loading recipes...</p>
         </div>
+      )}
+
+      {showForm && (
+        <Form onSubmit={handleAddRecipe} className="mb-4">
+          <Form.Group controlId="formRecipeName">
+            <Form.Label>Recipe Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter recipe name"
+              name="name"
+              value={newRecipe.name}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formRecipeRating">
+            <Form.Label>Rating</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter rating"
+              name="rating"
+              value={newRecipe.rating}
+              onChange={handleInputChange}
+              required
+              min="1"
+              max="5"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formRecipeCost">
+            <Form.Label>Cost</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Enter cost"
+              name="cost"
+              value={newRecipe.cost}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Button variant="success" type="submit" className="mt-3">
+            Submit Recipe
+          </Button>
+        </Form>
       )}
 
       <Row>
