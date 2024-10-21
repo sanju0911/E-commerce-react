@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Navigation from "./components/Navigation";
 import ProductsList from "./components/productsList";
 import Cart from "./components/Cart";
-import Home from "./components/Home"; // Import Home component
-import About from "./components/About"; // Import About component
+import Home from "./components/Home";
+import About from "./components/About";
 import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
