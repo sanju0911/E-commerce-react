@@ -4,6 +4,7 @@ import ProductsList from "./components/productsList";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import About from "./components/About";
+import Recipes from "./components/Recipes";
 import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -57,6 +58,7 @@ function App() {
           element={<ProductsList HandleCart={HandleCart} />}
         />
         <Route path="/about" element={<About />} />
+        <Route path="/Recipes" element={<Recipes />} />
       </Routes>
     </Router>
   );

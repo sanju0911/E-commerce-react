@@ -10,9 +10,18 @@ const Navigation = () => {
             E-commerce
           </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/store">Store</Nav.Link>
-            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/store">
+              Store
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
+              About Us
+            </Nav.Link>
+            <Nav.Link as={Link} to="/Recipes">
+              Recipes
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
