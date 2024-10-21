@@ -7,20 +7,24 @@ const Navigation = () => {
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
-            E-commerce
+            Recipe-Hotel
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/store">
+            {/* <Nav.Link as={Link} to="/store">
               Store
+            </Nav.Link> */}
+
+            <Nav.Link as={Link} to="/Recipes">
+              Recipes
             </Nav.Link>
             <Nav.Link as={Link} to="/about">
               About Us
             </Nav.Link>
-            <Nav.Link as={Link} to="/Recipes">
-              Recipes
+            <Nav.Link as={Link} to="/ContactUs">
+              ContactUs
             </Nav.Link>
           </Nav>
         </Container>
