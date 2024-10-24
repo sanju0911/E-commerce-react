@@ -9,6 +9,7 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -27,9 +28,7 @@ const Recipes = () => {
       setError(null);
 
       try {
-        const res = await fetch(
-          "https://dummyjson.com/recipes?limit=10&skip=10&select=name,image"
-        );
+        const res = await fetch("https://dummyjson.com/recipes");
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status} ${res.statusText}`);
@@ -147,21 +146,13 @@ const Recipes = () => {
                 <Card.Body>
                   <Card.Title>{recipe.name}</Card.Title>
                   <Card.Text>
-                    <strong>Difficulty:</strong> {recipe.difficulty} <br />
-                    <strong>Cuisine:</strong> {recipe.cuisine} <br />
-                    <strong>Prep Time:</strong> {recipe.prepTimeMinutes} min{" "}
-                    <br />
-                    <strong>Cook Time:</strong> {recipe.cookTimeMinutes} min{" "}
-                    <br />
-                    <strong>Servings:</strong> {recipe.servings} <br />
-                    <strong>Calories per Serving:</strong>{" "}
-                    {recipe.caloriesPerServing}
+                    <strong>Cuisine:</strong> {recipe.cuisine}
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">
-                    Rating: {recipe.rating} | Reviews: {recipe.reviewCount}
-                  </small>
+                  <small className="text-muted">Rating: {recipe.rating}</small>
+                  <br />
+                  <Link to={`/recipes/${recipe.id}`}>View Details</Link>{" "}
                 </Card.Footer>
               </Card>
             </Col>
