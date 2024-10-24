@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -26,6 +26,9 @@ const Navigation = () => {
             <Nav.Link as={Link} to="/contactus">
               Contact Us
             </Nav.Link>
+            <Button variant="secondary" onClick={logout}>
+              Logout
+            </Button>
             {token ? (
               <Nav.Link as={Link} to="/" onClick={logout}>
                 Logout
