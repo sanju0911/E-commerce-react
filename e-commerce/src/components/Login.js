@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Container, Form, Button, Alert } from "react-bootstrap";
 
-const Login = ({ setAuth }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+const Login = () => {
+  const { login } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Dummy login authentication
-    if (formData.email === "test@example.com" && formData.password === "1234") {
-      setAuth(true);
-      localStorage.setItem("auth", true);
-      navigate("/");
+    const dummyApiUrl = "https://dummyjson.com/auth/login";
+
+    const response = await fetch(dummyApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      login(data.token); 
     } else {
-      setError("Invalid email or password.");
+      setError(data.message);
     }
   };
 
@@ -30,25 +35,24 @@ const Login = ({ setAuth }) => {
       <h2>Login</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Username</Form.Label>
           <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="Enter your email"
+            type="text"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+
+        <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            placeholder="Enter your password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </Form.Group>
